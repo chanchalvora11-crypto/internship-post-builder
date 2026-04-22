@@ -1,5 +1,7 @@
 # Internship Post Builder 🚀
 
+![App Preview](screenshot.png)
+
 A professional single-page web application built with **Flask**, **HTML**, and **CSS** to help interns craft engaging LinkedIn posts in seconds.
 
 ## ✨ Features
