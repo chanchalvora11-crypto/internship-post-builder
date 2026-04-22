@@ -1,6 +1,11 @@
 # Internship Post Builder 🚀
 
-![App Preview](screenshot.png)
+### 📸 Project Preview
+| Step 1: Input Details | Step 2: Choose Tone |
+|---|---|
+| ![Input](screenshot1.png) | ![Tone](screenshot2.png) |
+| **Step 3: Generate** | **Step 4: Copy & Post** |
+| ![Generating](screenshot3.png) | ![Output](screenshot4.png) |
 
 A professional single-page web application built with **Flask**, **HTML**, and **CSS** to help interns craft engaging LinkedIn posts in seconds.
 
