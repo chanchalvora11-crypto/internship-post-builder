@@ -7,12 +7,25 @@
     --text-muted: #666666;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     --radius: 12px;
+    --input-bg: #ffffff;
+    --border: #e0e0e0;
+}
+
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #1d2226 0%, #000000 100%);
+    --card-bg: rgba(30, 35, 40, 0.95);
+    --text-main: #f3f6f8;
+    --text-muted: #b0b0b0;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --input-bg: #2d3339;
+    --border: #444444;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -80,12 +93,13 @@ label {
 input, textarea {
     width: 100%;
     padding: 12px 16px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--border);
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
     transition: all 0.3s ease;
-    background: white;
+    background: var(--input-bg);
+    color: var(--text-main);
 }
 
 input:focus, textarea:focus {
@@ -108,13 +122,14 @@ input:focus, textarea:focus {
     flex: 1;
     text-align: center;
     padding: 10px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--border);
     border-radius: 8px;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 600;
     transition: all 0.3s ease;
     color: var(--text-muted);
+    background: var(--input-bg);
 }
 
 .tone-options input[type="radio"]:checked + .tone-btn {
@@ -182,10 +197,10 @@ input:focus, textarea:focus {
 }
 
 .post-content {
-    background: #f9fafb;
+    background: var(--input-bg);
     padding: 20px;
     border-radius: 8px;
-    border: 1px dashed #ccc;
+    border: 1px dashed var(--border);
 }
 
 pre {
@@ -194,7 +209,31 @@ pre {
     font-family: inherit;
     font-size: 1rem;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-main);
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--card-bg);
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.action-btns {
+    display: flex;
+    gap: 10px;
 }
 
 .hidden {
