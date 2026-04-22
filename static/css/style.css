@@ -1,24 +1,24 @@
 :root {
-    --primary: #0a66c2;
-    --primary-hover: #004182;
-    --bg-gradient: linear-gradient(135deg, #f3f6f8 0%, #e1e9ee 100%);
-    --card-bg: rgba(255, 255, 255, 0.95);
-    --text-main: #1d2226;
-    --text-muted: #666666;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    --radius: 12px;
-    --input-bg: #ffffff;
-    --border: #e0e0e0;
+    --primary: #0077b5;
+    --primary-hover: #005582;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --card-bg: rgba(255, 255, 255, 0.98);
+    --text-main: #2c3e50;
+    --text-muted: #7f8c8d;
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    --radius: 20px;
+    --input-bg: #f8f9fa;
+    --border: #dcdde1;
 }
 
 [data-theme="dark"] {
-    --bg-gradient: linear-gradient(135deg, #1d2226 0%, #000000 100%);
-    --card-bg: rgba(30, 35, 40, 0.95);
-    --text-main: #f3f6f8;
-    --text-muted: #b0b0b0;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --input-bg: #2d3339;
-    --border: #444444;
+    --bg-gradient: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+    --card-bg: rgba(28, 35, 45, 0.98);
+    --text-main: #ecf0f1;
+    --text-muted: #bdc3c7;
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    --input-bg: #2c3e50;
+    --border: #34495e;
 }
 
 * {
@@ -50,16 +50,17 @@ header {
 }
 
 header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 10px;
-    letter-spacing: -0.5px;
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 header p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
+    color: rgba(255,255,255,0.9);
+    font-size: 1.2rem;
 }
 
 .form-card, .output-card {
@@ -254,12 +255,16 @@ footer {
 }
 
 @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
+    from { transform: translateY(40px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
 
 .fade-in {
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 1.2s ease-out forwards;
+}
+
+.container {
+    animation: slideUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 /* Loader */
