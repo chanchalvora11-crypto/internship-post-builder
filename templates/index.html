@@ -10,91 +10,93 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">
-        <span id="themeText">Dark Mode</span>
-    </div>
+    <div id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">Dark Mode</div>
 
     <div class="container">
-        <header class="fade-in">
-            <h1>InternPost Builder</h1>
-            <p>Craft professional LinkedIn posts for your internship milestones.</p>
+        <header>
+            <h1>Internship Post Builder</h1>
+            <p>A simple tool to help you share your internship milestones.</p>
         </header>
 
         <main>
-            <div class="form-card fade-in">
+            <div class="form-card">
                 <form id="postForm">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="name">Full Name</label>
+                            <label for="name">Your Name</label>
                             <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="role">Internship Role</label>
+                            <label for="role">Role</label>
                             <input type="text" id="role" name="role" required>
                         </div>
                         <div class="form-group">
-                            <label for="company">Company Name</label>
+                            <label for="company">Company</label>
                             <input type="text" id="company" name="company" required>
                         </div>
                         <div class="form-group">
-                            <label for="duration">Duration (e.g., 3 months)</label>
+                            <label for="duration">How long? (e.g. 3 months)</label>
                             <input type="text" id="duration" name="duration" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="work_done">Key Work Done / Projects</label>
+                        <label for="work_done">What did you build/do?</label>
                         <textarea id="work_done" name="work_done" rows="3" required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="skills">Skills Learned (comma separated)</label>
+                        <label for="skills">Skills (comma separated)</label>
                         <input type="text" id="skills" name="skills" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="growth">Personal Growth / Impact</label>
+                        <label for="growth">What did you learn?</label>
                         <textarea id="growth" name="growth" rows="2" required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label>Select Tone</label>
+                        <label>Post Tone</label>
                         <div class="tone-options">
                             <input type="radio" id="professional" name="tone" value="professional" checked>
-                            <label for="professional" class="tone-btn">Professional</label>
+                            <label for="professional" class="tone-btn">Formal</label>
 
                             <input type="radio" id="excited" name="tone" value="excited">
-                            <label for="excited" class="tone-btn">Excited</label>
+                            <label for="excited" class="tone-btn">Enthusiastic</label>
 
                             <input type="radio" id="minimal" name="tone" value="minimal">
-                            <label for="minimal" class="tone-btn">Minimal</label>
+                            <label for="minimal" class="tone-btn">Casual</label>
                         </div>
                     </div>
 
                     <button type="submit" id="generateBtn" class="primary-btn">
                         <span>Generate Post</span>
-                        <div class="loader" id="loader"></div>
                     </button>
                 </form>
             </div>
 
             <div id="outputSection" class="output-card hidden">
                 <div class="card-header">
-                    <h3>Your LinkedIn Post</h3>
+                    <h3>Generated Post</h3>
                     <div class="action-btns">
-                        <button id="downloadBtn" class="secondary-btn">Download .txt</button>
-                        <button id="copyBtn" class="secondary-btn">Copy Text</button>
+                        <button id="copyBtn" class="secondary-btn">Copy to Clipboard</button>
                     </div>
                 </div>
                 <div class="post-content">
                     <pre id="postOutput"></pre>
                 </div>
             </div>
-        </main>
 
-        <footer>
-            <p>© 2024 Internship Post Builder | Helping interns share their stories.</p>
-        </footer>
+            <div id="historySection" class="history-card">
+                <div class="history-header">
+                    <h3>Recent Posts</h3>
+                    <button id="clearHistoryBtn" class="text-btn">Clear All</button>
+                </div>
+                <div id="historyList" class="history-list">
+                    <p class="empty-msg">No posts saved yet.</p>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

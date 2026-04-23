@@ -1,110 +1,116 @@
 document.addEventListener('DOMContentLoaded', () => {
     const postForm = document.getElementById('postForm');
     const generateBtn = document.getElementById('generateBtn');
-    const loader = document.getElementById('loader');
     const btnText = generateBtn.querySelector('span');
     const outputSection = document.getElementById('outputSection');
     const postOutput = document.getElementById('postOutput');
     const copyBtn = document.getElementById('copyBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
     const themeToggle = document.getElementById('themeToggle');
+    const historyList = document.getElementById('historyList');
+    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
-    // --- Dark Mode Logic ---
-    const themeText = document.getElementById('themeText');
-    const updateThemeUI = (theme) => {
-        // Show the mode you can switch TO
-        themeText.textContent = theme === 'light' ? 'Dark Mode' : 'Light Mode';
-    };
-
+    // --- Simple Theme Toggle ---
     const currentTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', currentTheme);
-    updateThemeUI(currentTheme);
+    themeToggle.textContent = currentTheme === 'light' ? 'Dark Mode' : 'Light Mode';
 
     themeToggle.addEventListener('click', () => {
         let theme = document.documentElement.getAttribute('data-theme');
         let newTheme = theme === 'light' ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        updateThemeUI(newTheme);
+        themeToggle.textContent = newTheme === 'light' ? 'Dark Mode' : 'Light Mode';
     });
 
+    // --- History Logic ---
+    let history = JSON.parse(localStorage.getItem('postHistory')) || [];
+
+    const renderHistory = () => {
+        if (history.length === 0) {
+            historyList.innerHTML = '<p class="empty-msg">No posts saved yet.</p>';
+            return;
+        }
+        historyList.innerHTML = history.map((post, index) => `
+            <div class="history-item" onclick="loadFromHistory(${index})">
+                <div class="history-info">
+                    <strong>${post.company}</strong> - ${post.role}
+                    <span>${post.date}</span>
+                </div>
+                <div class="history-preview">${post.content.substring(0, 60)}...</div>
+            </div>
+        `).join('');
+    };
+
+    window.loadFromHistory = (index) => {
+        const post = history[index];
+        postOutput.textContent = post.content;
+        outputSection.classList.remove('hidden');
+        outputSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    clearHistoryBtn.addEventListener('click', () => {
+        if(confirm('Clear all saved posts?')) {
+            history = [];
+            localStorage.removeItem('postHistory');
+            renderHistory();
+        }
+    });
+
+    // --- Form Submission ---
     postForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        e.stopPropagation(); // Prevent event bubbling which can sometimes cause issues on mobile
-
-        // Show loading state
+        
         btnText.textContent = 'Generating...';
-        loader.style.display = 'block';
         generateBtn.disabled = true;
 
-        try {
-            const formData = new FormData(postForm);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
+        const formData = new FormData(postForm);
+        const data = Object.fromEntries(formData.entries());
 
+        try {
             const response = await fetch('/generate', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to generate post');
-            }
+            if (!response.ok) throw new Error('Failed to generate');
 
             const result = await response.json();
             
-            // Display result
+            // Show result
             postOutput.textContent = result.post;
             outputSection.classList.remove('hidden');
-            
-            // Scroll to output with a slight delay to ensure layout has updated
-            setTimeout(() => {
-                outputSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
+            outputSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Save to history
+            const newEntry = {
+                company: data.company,
+                role: data.role,
+                content: result.post,
+                date: new Date().toLocaleDateString()
+            };
+            history.unshift(newEntry);
+            if (history.length > 10) history.pop(); // Keep last 10
+            localStorage.setItem('postHistory', JSON.stringify(history));
+            renderHistory();
 
         } catch (error) {
-            console.error('Error:', error);
-            alert('Something went wrong: ' + error.message);
+            alert('Something went wrong. Try again!');
+            console.error(error);
         } finally {
-            // Reset button
             btnText.textContent = 'Generate Post';
-            loader.style.display = 'none';
             generateBtn.disabled = false;
         }
-
-        return false; // Extra safety to prevent form submission
     });
 
-    // Copy to Clipboard Functionality
+    // --- Copy Logic ---
     copyBtn.addEventListener('click', () => {
-        const textToCopy = postOutput.textContent;
-        navigator.clipboard.writeText(textToCopy).then(() => {
+        navigator.clipboard.writeText(postOutput.textContent).then(() => {
             const originalText = copyBtn.textContent;
             copyBtn.textContent = 'Copied! ✅';
-            
-            setTimeout(() => {
-                copyBtn.textContent = originalText;
-            }, 2000);
-        }).catch(err => {
-            console.error('Could not copy text: ', err);
+            setTimeout(() => copyBtn.textContent = originalText, 2000);
         });
     });
 
-    // Download as .txt Functionality
-    downloadBtn.addEventListener('click', () => {
-        const text = postOutput.textContent;
-        const blob = new Blob([text], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'LinkedIn_Post.txt';
-        a.click();
-        window.URL.revokeObjectURL(url);
-    });
+    renderHistory();
 });
