@@ -27,26 +27,33 @@ Sharing internship updates on LinkedIn is a critical part of building a professi
 
 ## Screenshots / Demo
 
-### 1. The Workspace
-<img src="screenshot1.png" width="400" alt="Landing Page" />
+### 1. Main Dashboard (Dark Mode)
+<img src="screenshot1.png" width="400" alt="Main Interface" />
+<br><em>The updated Dark Mode interface featuring a simplified header and a "Recent Posts" history section at the bottom.</em>
 
-### 2. Form Entry
+### 2. Clean Form Entry
 <img src="screenshot2.png" width="400" alt="Form Input" />
+<br><em>A distraction-free form layout designed for quick data entry.</em>
 
-### 3. Capturing Impact
+### 3. Achievement Details
 <img src="screenshot3.png" width="400" alt="Work Details" />
+<br><em>Intuitive fields for describing your projects and the specific skills you mastered.</em>
 
-### 4. Tone Selection
+### 4. Tone & Generation
 <img src="screenshot4.png" width="400" alt="Tone Selection" />
+<br><em>A simple selector for Formal, Enthusiastic, or Casual tones, paired with a prominent generation button.</em>
 
 ### 5. Generation State
 <img src="screenshot5.png" width="400" alt="Generating State" />
+<br><em>A lightweight feedback state that lets the user know the AI engine is crafting the post.</em>
 
-### 6. Final Output
+### 6. Final LinkedIn Post
 <img src="screenshot6.png" width="400" alt="Generated Output" />
+<br><em>The final generated post with professional formatting, ready to be copied directly to LinkedIn.</em>
 
-### 7. Recent History
+### 7. Local Post History
 <img src="screenshot7.png" width="400" alt="History Section" />
+<br><em>A persistent history of your last 10 generated posts, stored safely in your browser's LocalStorage.</em>
 
 ---
 
